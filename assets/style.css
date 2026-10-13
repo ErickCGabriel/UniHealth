@@ -124,3 +124,8 @@ footer a { color: var(--muted); text-decoration: none; }
 footer a:hover { color: var(--text); }
 
 a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* convite */
+.invite .invite-label { margin: 0; color: var(--muted); font-size: 14px; }
+.invite .invite-code { margin: 4px 0 0; font-family: ui-monospace, 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700; letter-spacing: 4px; color: var(--text); }
+.invite .cta { margin: 8px 0 12px; }

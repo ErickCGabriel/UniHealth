@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convite · UniHealth</title>
+<meta name="description" content="Você recebeu um convite para treinar junto no UniHealth.">
+<meta name="theme-color" content="#121214">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Convite · UniHealth">
+<meta property="og:description" content="Você recebeu um convite para treinar junto no UniHealth.">
+<meta property="og:image" content="https://unihealthapp.com.br/assets/icon.png">
+<meta property="og:url" content="https://unihealthapp.com.br/convite.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Syne:wght@800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/assets/icon.png" alt="">UniHealth</a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="/#recursos" class="hide-sm">Recursos</a>
+      <a href="/suporte.html">Suporte</a>
+      <a href="/privacidade.html" class="hide-sm">Privacidade</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="doc invite">
+  <div class="wrap">
+    <p class="eyebrow" id="inv-kind">Convite</p>
+    <h1 id="inv-title">Bora treinar junto?</h1>
+    <p class="lead" id="inv-text">Abra este convite no celular com o UniHealth instalado.</p>
+    <div class="box accent" id="inv-box" hidden>
+      <p class="invite-label" id="inv-label"></p>
+      <p class="invite-code" id="inv-code"></p>
+    </div>
+    <div class="cta">
+      <a class="btn btn-primary" id="inv-open" href="/">Abrir no UniHealth</a>
+    </div>
+    <h2>Ainda não tem o app?</h2>
+    <p>O UniHealth está em fase de testes no Android e no iPhone. Para participar, escreva para <a href="mailto:erickcgabriel123@gmail.com?subject=Quero%20testar%20o%20UniHealth">erickcgabriel123@gmail.com</a>. Depois de instalar, toque de novo no link do convite<span id="inv-hint"></span>.</p>
+  </div>
+</div>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Erick Cruz Gabriel · UniHealth</span>
+    <nav aria-label="Rodapé">
+      <a href="/suporte.html">Suporte</a>
+      <a href="/excluir-conta.html">Excluir conta</a>
+      <a href="/privacidade.html">Política de Privacidade</a>
+      <a href="/termos.html">Termos de Uso</a>
+      <a href="mailto:erickcgabriel123@gmail.com">erickcgabriel123@gmail.com</a>
+    </nav>
+  </div>
+</footer>
+<script>(function () {
+  var q = new URLSearchParams(location.search);
+  var g = (q.get('g') || '').trim().toUpperCase();
+  var u = (q.get('u') || '').trim().toLowerCase().replace(/^@/, '');
+  var $ = function (id) { return document.getElementById(id); };
+  var path = '';
+  if (/^[A-Z0-9]{4,12}$/.test(g)) {
+    path = 'social/convite/' + g;
+    $('inv-kind').textContent = 'Convite para grupo';
+    $('inv-title').textContent = 'Entre no grupo';
+    $('inv-text').textContent = 'Toque no botão para abrir o grupo no UniHealth.';
+    $('inv-label').textContent = 'Código do grupo';
+    $('inv-code').textContent = g;
+    $('inv-hint').textContent = ' ou use o código acima em Social, Entrar com código';
+  } else if (/^[a-z0-9_.]{3,20}$/.test(u)) {
+    path = 'social/amigo/' + u;
+    $('inv-kind').textContent = 'Convite de amizade';
+    $('inv-title').textContent = 'Treine junto com @' + u;
+    $('inv-text').textContent = 'Toque no botão para adicionar @' + u + ' no UniHealth.';
+    $('inv-label').textContent = 'Usuário';
+    $('inv-code').textContent = '@' + u;
+    $('inv-hint').textContent = ' ou adicione @' + u + ' em Social, Amigos';
+  }
+  if (!path) return;
+  $('inv-box').hidden = false;
+  var ua = navigator.userAgent;
+  var href = /Android/i.test(ua)
+    ? 'intent://' + path + '#Intent;scheme=unihealth;package=com.erickgabriel.unihealth;end'
+    : 'unihealth://' + path;
+  $('inv-open').href = href;
+  if (/Android|iPhone|iPad/i.test(ua)) setTimeout(function () { location.href = href; }, 300);
+})();</script>
+</body>
+</html>

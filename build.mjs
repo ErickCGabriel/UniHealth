@@ -24,7 +24,7 @@ const icon = {
 };
 const svg = (name) => `<svg viewBox="0 0 24 24" aria-hidden="true">${icon[name]}</svg>`;
 
-function page({ file, title, description, body, current }) {
+function page({ file, title, description, body, current, script = '' }) {
   const link = (href, label, cls = '') =>
     `<a href="${href}"${cls ? ` class="${cls}"` : ''}${current === href ? ' aria-current="page"' : ''}>${label}</a>`;
   const html = `<!doctype html>
@@ -73,7 +73,7 @@ ${body}
     </nav>
   </div>
 </footer>
-</body>
+${script ? `<script>${script}</script>\n` : ''}</body>
 </html>
 `;
   writeFileSync(new URL(`./${file}`, import.meta.url), html);
@@ -286,6 +286,65 @@ for (const [id, doc] of Object.entries(legal.docs)) {
 </div>`,
   });
 }
+
+// ---------- Convite (link clicável no WhatsApp que abre o app) ----------
+// /convite?g=CODIGO -> entrar no grupo   |   /convite?u=usuario -> adicionar amigo
+// O WhatsApp não deixa tocar em links "unihealth://", então o app compartilha este endereço
+// e a página abre o app (ou mostra o código e como conseguir o app).
+page({
+  file: 'convite.html',
+  title: 'Convite · UniHealth',
+  description: 'Você recebeu um convite para treinar junto no UniHealth.',
+  body: `
+<div class="doc invite">
+  <div class="wrap">
+    <p class="eyebrow" id="inv-kind">Convite</p>
+    <h1 id="inv-title">Bora treinar junto?</h1>
+    <p class="lead" id="inv-text">Abra este convite no celular com o UniHealth instalado.</p>
+    <div class="box accent" id="inv-box" hidden>
+      <p class="invite-label" id="inv-label"></p>
+      <p class="invite-code" id="inv-code"></p>
+    </div>
+    <div class="cta">
+      <a class="btn btn-primary" id="inv-open" href="/">Abrir no UniHealth</a>
+    </div>
+    <h2>Ainda não tem o app?</h2>
+    <p>O UniHealth está em fase de testes no Android e no iPhone. Para participar, escreva para <a href="mailto:${EMAIL}?subject=Quero%20testar%20o%20UniHealth">${EMAIL}</a>. Depois de instalar, toque de novo no link do convite<span id="inv-hint"></span>.</p>
+  </div>
+</div>`,
+  script: `(function () {
+  var q = new URLSearchParams(location.search);
+  var g = (q.get('g') || '').trim().toUpperCase();
+  var u = (q.get('u') || '').trim().toLowerCase().replace(/^@/, '');
+  var $ = function (id) { return document.getElementById(id); };
+  var path = '';
+  if (/^[A-Z0-9]{4,12}$/.test(g)) {
+    path = 'social/convite/' + g;
+    $('inv-kind').textContent = 'Convite para grupo';
+    $('inv-title').textContent = 'Entre no grupo';
+    $('inv-text').textContent = 'Toque no botão para abrir o grupo no UniHealth.';
+    $('inv-label').textContent = 'Código do grupo';
+    $('inv-code').textContent = g;
+    $('inv-hint').textContent = ' ou use o código acima em Social, Entrar com código';
+  } else if (/^[a-z0-9_.]{3,20}$/.test(u)) {
+    path = 'social/amigo/' + u;
+    $('inv-kind').textContent = 'Convite de amizade';
+    $('inv-title').textContent = 'Treine junto com @' + u;
+    $('inv-text').textContent = 'Toque no botão para adicionar @' + u + ' no UniHealth.';
+    $('inv-label').textContent = 'Usuário';
+    $('inv-code').textContent = '@' + u;
+    $('inv-hint').textContent = ' ou adicione @' + u + ' em Social, Amigos';
+  }
+  if (!path) return;
+  $('inv-box').hidden = false;
+  var ua = navigator.userAgent;
+  var href = /Android/i.test(ua)
+    ? 'intent://' + path + '#Intent;scheme=unihealth;package=com.erickgabriel.unihealth;end'
+    : 'unihealth://' + path;
+  $('inv-open').href = href;
+  if (/Android|iPhone|iPad/i.test(ua)) setTimeout(function () { location.href = href; }, 300);
+})();`,
+});
 
 // 404 simples
 page({
