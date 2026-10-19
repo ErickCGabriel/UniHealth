@@ -288,7 +288,7 @@ for (const [id, doc] of Object.entries(legal.docs)) {
 }
 
 // ---------- Convite (link clicável no WhatsApp que abre o app) ----------
-// /convite?g=CODIGO -> entrar no grupo   |   /convite?u=usuario -> adicionar amigo
+// /convite?g=CODIGO -> entrar no grupo   |   /convite?u=usuario -> adicionar amigo   |   /convite?t=CODIGO -> treino compartilhado
 // O WhatsApp não deixa tocar em links "unihealth://", então o app compartilha este endereço
 // e a página abre o app (ou mostra o código e como conseguir o app).
 page({
@@ -316,6 +316,7 @@ page({
   var q = new URLSearchParams(location.search);
   var g = (q.get('g') || '').trim().toUpperCase();
   var u = (q.get('u') || '').trim().toLowerCase().replace(/^@/, '');
+  var tr = (q.get('t') || '').trim().toUpperCase();
   var $ = function (id) { return document.getElementById(id); };
   var path = '';
   if (/^[A-Z0-9]{4,12}$/.test(g)) {
@@ -326,6 +327,14 @@ page({
     $('inv-label').textContent = 'Código do grupo';
     $('inv-code').textContent = g;
     $('inv-hint').textContent = ' ou use o código acima em Social, Entrar com código';
+  } else if (/^[A-Z0-9]{8}$/.test(tr)) {
+    path = 'rotina/recebida/' + tr;
+    $('inv-kind').textContent = 'Treino compartilhado';
+    $('inv-title').textContent = 'Te mandaram um treino';
+    $('inv-text').textContent = 'Toque no botão para ver o treino no UniHealth e salvar nas suas rotinas.';
+    $('inv-label').textContent = 'Código do treino';
+    $('inv-code').textContent = tr;
+    $('inv-hint').textContent = '';
   } else if (/^[a-z0-9_.]{3,20}$/.test(u)) {
     path = 'social/amigo/' + u;
     $('inv-kind').textContent = 'Convite de amizade';
