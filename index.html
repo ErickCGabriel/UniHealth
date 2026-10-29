@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UniHealth: Treino e Saúde</title>
 <meta name="description" content="Treino, alimentação, água e sono num só app, com metas feitas para o seu corpo e desafios com os amigos. Do zero ao avançado.">
-<meta name="theme-color" content="#121214">
+<meta name="theme-color" content="#e8e8e5">
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/icon.png">
 <meta property="og:type" content="website">
@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://unihealthapp.com.br/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Syne:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -33,75 +33,87 @@
 
 <div class="hero">
   <div class="wrap">
-    <div>
-      <p class="eyebrow">Treino · Alimentação · Hábitos</p>
-      <h1>Escolha o shape.<br>A gente monta o caminho.</h1>
-      <p class="lead">Treinos, refeições, água e sono no mesmo quadro do dia, com metas calculadas para o seu corpo. Para quem nunca treinou e para quem treina todo dia.</p>
-      <div class="cta">
-        <a class="btn btn-primary" aria-disabled="true"><span class="two">Android<small>Em breve na Google Play</small></span></a>
-        <a class="btn btn-ghost" aria-disabled="true"><span class="two">iPhone<small>Em breve no TestFlight</small></span></a>
+    <div class="hero-text">
+      <h1><span class="mark" aria-hidden="true">uni.</span><span class="sr">UniHealth: treino, alimentação, água e sono num só app</span></h1>
+      <div class="hero-cols mono">
+        <p><b>Treino e prato</b>Programas de 8 semanas, cargas, descanso e calorias da refeição por foto.</p>
+        <p><b>Água e sono</b>Metas calculadas para o seu corpo, no mesmo quadro do dia.</p>
       </div>
-      <p class="note">Em fase de testes. Quer participar? Escreva para <a href="mailto:erickcgabriel123@gmail.com?subject=Quero%20testar%20o%20UniHealth">erickcgabriel123@gmail.com</a>.</p>
+      <p class="lead">Para quem nunca treinou e para quem treina todo dia. O UniHealth monta as metas e mostra o dia inteiro num lugar só.</p>
+      <div class="cta">
+        <a class="btn" href="mailto:erickcgabriel123@gmail.com?subject=Quero%20testar%20o%20UniHealth">Quero testar</a>
+      </div>
+      <p class="note">Em teste no Android (Google Play) e no iPhone (TestFlight).</p>
     </div>
-    <div class="hero-art"><img src="/assets/icon.png" alt="Ícone do UniHealth: um anel de progresso com a letra U"></div>
+    <div class="hero-art">
+      <div class="bloco" aria-hidden="true"></div>
+      <div class="phone"><img src="/assets/app/hoje.png" alt="Tela Hoje do UniHealth: treinos da semana, botões Treinar e Refeição" width="390" height="844"></div>
+      <a class="seta" href="#dia" aria-label="Ver o app por dentro"><span aria-hidden="true">↓</span></a>
+      <p class="vertical" aria-hidden="true">Escolha o shape.<br>A gente monta o caminho.</p>
+    </div>
+    <p class="versao" aria-label="Versão 0.17">0.17<small>versão</small></p>
   </div>
 </div>
 
-<section id="recursos">
+<section class="dia" id="dia">
+  <p class="fantasma" aria-hidden="true">SEU DIA</p>
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Recursos</p>
-      <h2>Tudo o que ajuda a manter o hábito</h2>
-      <p>O UniHealth calcula as suas metas e mostra o dia inteiro num lugar só. Sem planilha, sem cinco apps diferentes.</p>
-    </div>
-    <div class="grid">
-      <div class="card "><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Treinos que se adaptam</h3><p>Programas de 8 semanas pelo seu objetivo, experiência e dias livres. Registre cargas, descanso cronometrado e recordes pessoais.</p></div>
-      <div class="card "><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></div><h3>Cardio também conta</h3><p>Corrida do zero aos 10 km, pedal, caminhada e natação. Meta semanal de 150 minutos, como recomenda a OMS.</p></div>
-      <div class="card food"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3>Prato por foto</h3><p>Fotografe a refeição e receba uma estimativa de calorias e macronutrientes por inteligência artificial.</p></div>
-      <div class="card "><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><h3>Água e lembretes</h3><p>Meta de água pelo seu peso, com lembretes de água, treino, refeições e pesagem no horário que você escolher.</p></div>
-      <div class="card sleep"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div><h3>Sono e recuperação</h3><p>Registre como dormiu e veja a sua recuperação para saber quando ir com tudo e quando pegar leve.</p></div>
-      <div class="card sleep"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><h3>Ciclo menstrual</h3><p>Acompanhe o ciclo e veja as metas ajustadas em cada fase. Opcional e só para quem quiser.</p></div>
-      <div class="card "><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Amigos e grupos</h3><p>Desafios de dias treinados, passos, cardio ou Uni Pontos, com pódio no final, reações e cutucadas.</p></div>
-      <div class="card "><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div><h3>Conquistas</h3><p>Mais de 40 conquistas e níveis para comemorar cada passo, do primeiro treino ao centésimo.</p></div>
-      <div class="card "><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>900+ exercícios</h3><p>Biblioteca com fotos do movimento, separada por músculo, para montar o treino do seu jeito.</p></div>
+    <h2 class="titulo">O dia inteiro<br>num lugar só</h2>
+    <p class="intro">Abra o app e veja o que falta: o treino da semana, as calorias que restam, a água e como você dormiu.</p>
+    <div class="telas">
+      <figure class="tela"><div class="phone"><img src="/assets/app/treinos.png" alt="Tela Treinos: iniciar treino vazio, nova rotina e rotinas salvas" width="390" height="844" loading="lazy"></div><h3>Treinos</h3><p>Rotinas suas, treino livre e programas prontos.</p></figure>
+      <figure class="tela"><div class="phone"><img src="/assets/app/prato.png" alt="Tela Prato: calorias restantes num anel, proteína, carbo e gordura" width="390" height="844" loading="lazy"></div><h3>Prato</h3><p>Anel das calorias e macros. Fotografe o prato.</p></figure>
+      <figure class="tela"><div class="phone"><img src="/assets/app/sono.png" alt="Tela Sono: 8 horas na última noite e barras dos últimos 7 dias" width="390" height="844" loading="lazy"></div><h3>Sono</h3><p>A noite em destaque e a média da semana.</p></figure>
+      <figure class="tela"><div class="phone"><img src="/assets/app/atividade.png" alt="Tela Passos e cardio: 6.900 passos de 8.000" width="390" height="844" loading="lazy"></div><h3>Passos e cardio</h3><p>Passos do relógio e cardio entram no gasto do dia.</p></figure>
     </div>
   </div>
 </section>
 
-<section>
+<section class="recursos" id="recursos">
   <div class="wrap">
-    <div class="section-head">
+    <div class="cabeca">
+      <h2 class="titulo">Tudo que<br>ajuda no hábito</h2>
+      <p>Sem planilha e sem cinco apps diferentes. O UniHealth calcula as suas metas e lembra você na hora certa.</p>
+    </div>
+    <ul class="lista">
+      <li><h3>Treinos que se adaptam</h3><p>Programas de 8 semanas pelo seu objetivo, experiência e dias livres. Cargas, descanso cronometrado e recordes.</p></li>
+      <li><h3>Cardio também conta</h3><p>Corrida do zero aos 10 km, pedal, caminhada e natação. Meta de 150 minutos por semana, como recomenda a OMS.</p></li>
+      <li><h3>Prato por foto</h3><p>Fotografe a refeição e receba uma estimativa de calorias e macros por IA, com os valores da tabela TACO.</p></li>
+      <li><h3>Água e lembretes</h3><p>Meta de água pelo seu peso e lembretes de água, treino, refeições e pesagem no horário que você escolher.</p></li>
+      <li><h3>Sono e recuperação</h3><p>Registre a noite ou traga do relógio, com as fases do sono, para saber quando ir com tudo.</p></li>
+      <li><h3>Ciclo menstrual</h3><p>Metas ajustadas em cada fase. Opcional e só para quem quiser.</p></li>
+      <li><h3>Amigos e grupos</h3><p>Desafios de dias treinados, passos, cardio ou Uni Pontos, com pódio, reações e cutucadas.</p></li>
+      <li><h3>900+ exercícios</h3><p>Biblioteca com fotos do movimento, separada por músculo, para montar o treino do seu jeito.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="poster">
+  <div class="wrap">
+    <div class="palco">
+      <p class="letras" aria-hidden="true"><span>Sha</span><span>pe.</span></p>
+      <div class="phone"><img src="/assets/app/hoje-claro.png" alt="Tela Hoje do UniHealth no tema claro" width="390" height="844" loading="lazy"></div>
+    </div>
+    <div class="publico">
       <p class="eyebrow">Para quem é</p>
-      <h2>Do primeiro passo ao treino de todo dia</h2>
-    </div>
-    <div class="split">
-      <div class="card">
-        <h3>Nunca treinou?</h3>
-        <p>Comece pelo Primeiros Passos: duas sessões de 20 minutos por semana, em casa, sem equipamento. No seu tempo.</p>
-      </div>
-      <div class="card">
-        <h3>Ama academia?</h3>
-        <p>Programas avançados de até 6 dias, sugestão de aumento de carga e histórico completo de cada exercício.</p>
-      </div>
-      <div class="card">
-        <h3>Prefere cardio?</h3>
-        <p>Programas de corrida, pedal, natação e caminhada. O treino de cardio entra direto na sua meta da semana.</p>
-      </div>
-      <div class="card">
-        <h3>Tem 50 anos ou mais?</h3>
-        <p>Vida Ativa 50+: força, equilíbrio e mobilidade com segurança, adaptados às limitações que você informar.</p>
-      </div>
+      <h2 class="titulo">Escolha o shape.<br>A gente monta o caminho.</h2>
+      <dl>
+        <dt>Nunca treinou?</dt><dd>Primeiros Passos: duas sessões de 20 minutos por semana, em casa, sem equipamento.</dd>
+        <dt>Ama academia?</dt><dd>Programas de até 6 dias, sugestão de aumento de carga e o histórico de cada exercício.</dd>
+        <dt>Prefere cardio?</dt><dd>Corrida, pedal, natação e caminhada entram direto na meta da semana.</dd>
+        <dt>Tem 50 anos ou mais?</dt><dd>Vida Ativa 50+: força, equilíbrio e mobilidade, adaptados às limitações que você informar.</dd>
+      </dl>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="wrap split">
+<section class="dados">
+  <div class="wrap">
     <div>
       <p class="eyebrow">Privacidade</p>
-      <h2>Seus dados, suas regras</h2>
+      <h2 class="mark">seus<br>dados.</h2>
     </div>
-    <ul class="check">
+    <ul>
       <li>Funciona sem conta: os dados ficam só no seu celular.</li>
       <li>Com conta, backup na nuvem e acesso em qualquer aparelho.</li>
       <li>Sem anúncios e sem venda de dados.</li>
@@ -109,22 +121,27 @@
       <li>Excluir a conta apaga tudo da nuvem na hora, pelo próprio app.</li>
     </ul>
   </div>
+  <div class="wrap rodape-bloco">
+    <a class="seta" href="/privacidade.html" aria-label="Ler a Política de Privacidade"><span aria-hidden="true">↓</span></a>
+  </div>
 </section>
 
 <section class="final">
   <div class="wrap">
-    <h2>Seu próximo treino começa aqui</h2>
-    <p>O UniHealth está em fase de testes no Android e no iPhone. Em breve nas lojas.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="mailto:erickcgabriel123@gmail.com?subject=Quero%20testar%20o%20UniHealth">Quero testar</a>
-      <a class="btn btn-ghost" href="/suporte.html">Dúvidas frequentes</a>
+    <h2 class="titulo">Bora<br>treinar.</h2>
+    <div class="aside">
+      <p>O UniHealth está em teste no Android e no iPhone. Escreva para entrar no grupo de testes.</p>
+      <div class="cta">
+        <a class="btn btn-sinal" href="mailto:erickcgabriel123@gmail.com?subject=Quero%20testar%20o%20UniHealth">Quero testar</a>
+        <a class="btn btn-ghost" href="/suporte.html">Dúvidas</a>
+      </div>
     </div>
   </div>
 </section>
 </main>
 <footer>
   <div class="wrap">
-    <span>© 2026 Erick Cruz Gabriel · UniHealth</span>
+    <span>© 2026 Erick Cruz Gabriel · UniHealth 0.17</span>
     <nav aria-label="Rodapé">
       <a href="/suporte.html">Suporte</a>
       <a href="/excluir-conta.html">Excluir conta</a>

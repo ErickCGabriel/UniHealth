@@ -7,22 +7,11 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const legal = JSON.parse(readFileSync(new URL('../unihealth/src/data/legal.json', import.meta.url), 'utf8'));
 const EMAIL = legal.email;
 const SITE = 'https://unihealthapp.com.br';
+// Versão atual do app (aparece girada no canto do topo da página inicial).
+const VERSION = JSON.parse(readFileSync(new URL('../unihealth/app.json', import.meta.url), 'utf8')).expo.version.replace(/\.0$/, '');
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const fill = (s) => esc(s.replaceAll('{{controller}}', legal.controller).replaceAll('{{email}}', legal.email));
 
-const icon = {
-  activity: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
-  camera: '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
-  moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
-  wind: '<path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>',
-  users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
-  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
-  droplet: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',
-  calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
-  award: '<circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>',
-  heart: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>',
-};
-const svg = (name) => `<svg viewBox="0 0 24 24" aria-hidden="true">${icon[name]}</svg>`;
 
 function page({ file, title, description, body, current, script = '' }) {
   const link = (href, label, cls = '') =>
@@ -34,7 +23,7 @@ function page({ file, title, description, body, current, script = '' }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<meta name="theme-color" content="#121214">
+<meta name="theme-color" content="#e8e8e5">
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/icon.png">
 <meta property="og:type" content="website">
@@ -44,7 +33,7 @@ function page({ file, title, description, body, current, script = '' }) {
 <meta property="og:url" content="${SITE}/${file === 'index.html' ? '' : file}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Syne:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -63,7 +52,7 @@ ${body}
 </main>
 <footer>
   <div class="wrap">
-    <span>© 2026 ${esc(legal.controller)} · UniHealth</span>
+    <span>© 2026 ${esc(legal.controller)} · UniHealth ${VERSION}</span>
     <nav aria-label="Rodapé">
       <a href="/suporte.html">Suporte</a>
       <a href="/excluir-conta.html">Excluir conta</a>
@@ -81,8 +70,12 @@ ${script ? `<script>${script}</script>\n` : ''}</body>
 }
 
 // ---------- Início ----------
-const card = (ico, title, text, cls = '') =>
-  `<div class="card ${cls}"><div class="ico">${svg(ico)}</div><h3>${title}</h3><p>${text}</p></div>`;
+// Visual editorial (29/10): "uni." gigante, o app num celular sobre o bloco de cor, texto na vertical e a versão girada.
+const shot = (name, alt, lazy = true) =>
+  `<div class="phone"><img src="/assets/app/${name}.png" alt="${alt}" width="390" height="844"${lazy ? ' loading="lazy"' : ''}></div>`;
+const tela = (name, title, text, alt) => `<figure class="tela">${shot(name, alt)}<h3>${title}</h3><p>${text}</p></figure>`;
+const recurso = (title, text) => `<li><h3>${title}</h3><p>${text}</p></li>`;
+const QUERO = `mailto:${EMAIL}?subject=Quero%20testar%20o%20UniHealth`;
 
 page({
   file: 'index.html',
@@ -92,75 +85,87 @@ page({
   body: `
 <div class="hero">
   <div class="wrap">
-    <div>
-      <p class="eyebrow">Treino · Alimentação · Hábitos</p>
-      <h1>Escolha o shape.<br>A gente monta o caminho.</h1>
-      <p class="lead">Treinos, refeições, água e sono no mesmo quadro do dia, com metas calculadas para o seu corpo. Para quem nunca treinou e para quem treina todo dia.</p>
-      <div class="cta">
-        <a class="btn btn-primary" aria-disabled="true"><span class="two">Android<small>Em breve na Google Play</small></span></a>
-        <a class="btn btn-ghost" aria-disabled="true"><span class="two">iPhone<small>Em breve no TestFlight</small></span></a>
+    <div class="hero-text">
+      <h1><span class="mark" aria-hidden="true">uni.</span><span class="sr">UniHealth: treino, alimentação, água e sono num só app</span></h1>
+      <div class="hero-cols mono">
+        <p><b>Treino e prato</b>Programas de 8 semanas, cargas, descanso e calorias da refeição por foto.</p>
+        <p><b>Água e sono</b>Metas calculadas para o seu corpo, no mesmo quadro do dia.</p>
       </div>
-      <p class="note">Em fase de testes. Quer participar? Escreva para <a href="mailto:${EMAIL}?subject=Quero%20testar%20o%20UniHealth">${EMAIL}</a>.</p>
+      <p class="lead">Para quem nunca treinou e para quem treina todo dia. O UniHealth monta as metas e mostra o dia inteiro num lugar só.</p>
+      <div class="cta">
+        <a class="btn" href="${QUERO}">Quero testar</a>
+      </div>
+      <p class="note">Em teste no Android (Google Play) e no iPhone (TestFlight).</p>
     </div>
-    <div class="hero-art"><img src="/assets/icon.png" alt="Ícone do UniHealth: um anel de progresso com a letra U"></div>
+    <div class="hero-art">
+      <div class="bloco" aria-hidden="true"></div>
+      ${shot('hoje', 'Tela Hoje do UniHealth: treinos da semana, botões Treinar e Refeição', false)}
+      <a class="seta" href="#dia" aria-label="Ver o app por dentro"><span aria-hidden="true">↓</span></a>
+      <p class="vertical" aria-hidden="true">Escolha o shape.<br>A gente monta o caminho.</p>
+    </div>
+    <p class="versao" aria-label="Versão ${VERSION}">${VERSION}<small>versão</small></p>
   </div>
 </div>
 
-<section id="recursos">
+<section class="dia" id="dia">
+  <p class="fantasma" aria-hidden="true">SEU DIA</p>
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Recursos</p>
-      <h2>Tudo o que ajuda a manter o hábito</h2>
-      <p>O UniHealth calcula as suas metas e mostra o dia inteiro num lugar só. Sem planilha, sem cinco apps diferentes.</p>
-    </div>
-    <div class="grid">
-      ${card('activity', 'Treinos que se adaptam', 'Programas de 8 semanas pelo seu objetivo, experiência e dias livres. Registre cargas, descanso cronometrado e recordes pessoais.')}
-      ${card('wind', 'Cardio também conta', 'Corrida do zero aos 10 km, pedal, caminhada e natação. Meta semanal de 150 minutos, como recomenda a OMS.')}
-      ${card('camera', 'Prato por foto', 'Fotografe a refeição e receba uma estimativa de calorias e macronutrientes por inteligência artificial.', 'food')}
-      ${card('droplet', 'Água e lembretes', 'Meta de água pelo seu peso, com lembretes de água, treino, refeições e pesagem no horário que você escolher.')}
-      ${card('moon', 'Sono e recuperação', 'Registre como dormiu e veja a sua recuperação para saber quando ir com tudo e quando pegar leve.', 'sleep')}
-      ${card('calendar', 'Ciclo menstrual', 'Acompanhe o ciclo e veja as metas ajustadas em cada fase. Opcional e só para quem quiser.', 'sleep')}
-      ${card('users', 'Amigos e grupos', 'Desafios de dias treinados, passos, cardio ou Uni Pontos, com pódio no final, reações e cutucadas.')}
-      ${card('award', 'Conquistas', 'Mais de 40 conquistas e níveis para comemorar cada passo, do primeiro treino ao centésimo.')}
-      ${card('heart', '900+ exercícios', 'Biblioteca com fotos do movimento, separada por músculo, para montar o treino do seu jeito.')}
+    <h2 class="titulo">O dia inteiro<br>num lugar só</h2>
+    <p class="intro">Abra o app e veja o que falta: o treino da semana, as calorias que restam, a água e como você dormiu.</p>
+    <div class="telas">
+      ${tela('treinos', 'Treinos', 'Rotinas suas, treino livre e programas prontos.', 'Tela Treinos: iniciar treino vazio, nova rotina e rotinas salvas')}
+      ${tela('prato', 'Prato', 'Anel das calorias e macros. Fotografe o prato.', 'Tela Prato: calorias restantes num anel, proteína, carbo e gordura')}
+      ${tela('sono', 'Sono', 'A noite em destaque e a média da semana.', 'Tela Sono: 8 horas na última noite e barras dos últimos 7 dias')}
+      ${tela('atividade', 'Passos e cardio', 'Passos do relógio e cardio entram no gasto do dia.', 'Tela Passos e cardio: 6.900 passos de 8.000')}
     </div>
   </div>
 </section>
 
-<section>
+<section class="recursos" id="recursos">
   <div class="wrap">
-    <div class="section-head">
+    <div class="cabeca">
+      <h2 class="titulo">Tudo que<br>ajuda no hábito</h2>
+      <p>Sem planilha e sem cinco apps diferentes. O UniHealth calcula as suas metas e lembra você na hora certa.</p>
+    </div>
+    <ul class="lista">
+      ${recurso('Treinos que se adaptam', 'Programas de 8 semanas pelo seu objetivo, experiência e dias livres. Cargas, descanso cronometrado e recordes.')}
+      ${recurso('Cardio também conta', 'Corrida do zero aos 10 km, pedal, caminhada e natação. Meta de 150 minutos por semana, como recomenda a OMS.')}
+      ${recurso('Prato por foto', 'Fotografe a refeição e receba uma estimativa de calorias e macros por IA, com os valores da tabela TACO.')}
+      ${recurso('Água e lembretes', 'Meta de água pelo seu peso e lembretes de água, treino, refeições e pesagem no horário que você escolher.')}
+      ${recurso('Sono e recuperação', 'Registre a noite ou traga do relógio, com as fases do sono, para saber quando ir com tudo.')}
+      ${recurso('Ciclo menstrual', 'Metas ajustadas em cada fase. Opcional e só para quem quiser.')}
+      ${recurso('Amigos e grupos', 'Desafios de dias treinados, passos, cardio ou Uni Pontos, com pódio, reações e cutucadas.')}
+      ${recurso('900+ exercícios', 'Biblioteca com fotos do movimento, separada por músculo, para montar o treino do seu jeito.')}
+    </ul>
+  </div>
+</section>
+
+<section class="poster">
+  <div class="wrap">
+    <div class="palco">
+      <p class="letras" aria-hidden="true"><span>Sha</span><span>pe.</span></p>
+      ${shot('hoje-claro', 'Tela Hoje do UniHealth no tema claro')}
+    </div>
+    <div class="publico">
       <p class="eyebrow">Para quem é</p>
-      <h2>Do primeiro passo ao treino de todo dia</h2>
-    </div>
-    <div class="split">
-      <div class="card">
-        <h3>Nunca treinou?</h3>
-        <p>Comece pelo Primeiros Passos: duas sessões de 20 minutos por semana, em casa, sem equipamento. No seu tempo.</p>
-      </div>
-      <div class="card">
-        <h3>Ama academia?</h3>
-        <p>Programas avançados de até 6 dias, sugestão de aumento de carga e histórico completo de cada exercício.</p>
-      </div>
-      <div class="card">
-        <h3>Prefere cardio?</h3>
-        <p>Programas de corrida, pedal, natação e caminhada. O treino de cardio entra direto na sua meta da semana.</p>
-      </div>
-      <div class="card">
-        <h3>Tem 50 anos ou mais?</h3>
-        <p>Vida Ativa 50+: força, equilíbrio e mobilidade com segurança, adaptados às limitações que você informar.</p>
-      </div>
+      <h2 class="titulo">Escolha o shape.<br>A gente monta o caminho.</h2>
+      <dl>
+        <dt>Nunca treinou?</dt><dd>Primeiros Passos: duas sessões de 20 minutos por semana, em casa, sem equipamento.</dd>
+        <dt>Ama academia?</dt><dd>Programas de até 6 dias, sugestão de aumento de carga e o histórico de cada exercício.</dd>
+        <dt>Prefere cardio?</dt><dd>Corrida, pedal, natação e caminhada entram direto na meta da semana.</dd>
+        <dt>Tem 50 anos ou mais?</dt><dd>Vida Ativa 50+: força, equilíbrio e mobilidade, adaptados às limitações que você informar.</dd>
+      </dl>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="wrap split">
+<section class="dados">
+  <div class="wrap">
     <div>
       <p class="eyebrow">Privacidade</p>
-      <h2>Seus dados, suas regras</h2>
+      <h2 class="mark">seus<br>dados.</h2>
     </div>
-    <ul class="check">
+    <ul>
       <li>Funciona sem conta: os dados ficam só no seu celular.</li>
       <li>Com conta, backup na nuvem e acesso em qualquer aparelho.</li>
       <li>Sem anúncios e sem venda de dados.</li>
@@ -168,15 +173,20 @@ page({
       <li>Excluir a conta apaga tudo da nuvem na hora, pelo próprio app.</li>
     </ul>
   </div>
+  <div class="wrap rodape-bloco">
+    <a class="seta" href="/privacidade.html" aria-label="Ler a Política de Privacidade"><span aria-hidden="true">↓</span></a>
+  </div>
 </section>
 
 <section class="final">
   <div class="wrap">
-    <h2>Seu próximo treino começa aqui</h2>
-    <p>O UniHealth está em fase de testes no Android e no iPhone. Em breve nas lojas.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="mailto:${EMAIL}?subject=Quero%20testar%20o%20UniHealth">Quero testar</a>
-      <a class="btn btn-ghost" href="/suporte.html">Dúvidas frequentes</a>
+    <h2 class="titulo">Bora<br>treinar.</h2>
+    <div class="aside">
+      <p>O UniHealth está em teste no Android e no iPhone. Escreva para entrar no grupo de testes.</p>
+      <div class="cta">
+        <a class="btn btn-sinal" href="${QUERO}">Quero testar</a>
+        <a class="btn btn-ghost" href="/suporte.html">Dúvidas</a>
+      </div>
     </div>
   </div>
 </section>`,
@@ -196,17 +206,17 @@ page({
     <p class="updated">Respondemos em até 15 dias, normalmente bem antes.</p>
     <div class="box accent">
       <strong>Fale com a gente</strong>
-      <p>Dentro do app: <strong>Perfil → Enviar feedback</strong> (dá para anexar print).<br>Por e-mail: <a href="mailto:${EMAIL}">${EMAIL}</a></p>
+      <p>Dentro do app: <strong>Perfil → Configurações → Ajuda → Enviar feedback</strong> (dá para anexar print).<br>Por e-mail: <a href="mailto:${EMAIL}">${EMAIL}</a></p>
     </div>
 
     <h2>Dúvidas frequentes</h2>
     ${faq('Preciso criar uma conta?', ['Não. O UniHealth funciona sem conta e os dados ficam só no seu celular. Com conta, você ganha backup na nuvem, acesso em outros aparelhos, a análise de fotos por IA e a parte social.'])}
-    ${faq('Posso entrar com @usuário em vez do e-mail?', ['Sim. Na tela de entrar, digite seu e-mail ou seu @usuário e a senha. Também dá para entrar com o Google.'])}
-    ${faq('Troquei de celular. Como recupero meus dados?', ['Instale o app no celular novo e entre com a mesma conta (Perfil → Conta e backup). Treinos, refeições, sono e fotos voltam sozinhos.'])}
-    ${faq('O app lê os dados do meu relógio?', ['No Android, sim: conecte o Health Connect em Treinos → Cardio e passos para trazer passos, sono, batimentos e exercícios. No iPhone, a integração com o Apple Saúde ainda não está disponível.'])}
+    ${faq('Posso entrar com @usuário em vez do e-mail?', ['Sim. Na tela de entrar, digite seu e-mail ou seu @usuário e a senha. Também dá para entrar com o Google e, no iPhone, com a Apple.'])}
+    ${faq('Troquei de celular. Como recupero meus dados?', ['Instale o app no celular novo e entre com a mesma conta (Perfil → Configurações → Conta e backup). Treinos, refeições, sono e fotos voltam sozinhos.'])}
+    ${faq('O app lê os dados do meu relógio?', ['Sim. Em Treinos → Cardio e passos, conecte o Health Connect (Android) ou o Apple Saúde (iPhone, da versão 0.16 em diante) para trazer passos, sono, batimentos e exercícios. O app só lê esses dados.'])}
     ${faq('A análise do prato por foto é exata?', ['É uma estimativa feita por inteligência artificial e pode errar. Confira e ajuste os valores antes de salvar. Ela precisa de conta e tem um limite diário de análises.'])}
     ${faq('Os outros veem meu peso ou o que eu como?', ['Não. Na parte social, que é opcional, só aparece o resumo que você permitir: se treinou, passos, minutos de cardio e Uni Pontos. Peso, refeições, sono, ciclo e batimentos nunca são compartilhados.'])}
-    ${faq('Os lembretes não chegam. O que faço?', ['Confira se as notificações do UniHealth estão permitidas nos ajustes do celular. No Android 12 ou mais novo, ligue também "Alarmes e lembretes" para o app (Perfil → Lembretes mostra o atalho).'])}
+    ${faq('Os lembretes não chegam. O que faço?', ['Confira se as notificações do UniHealth estão permitidas nos ajustes do celular. No Android 12 ou mais novo, ligue também "Alarmes e lembretes" para o app (Perfil → Configurações → Lembretes mostra o atalho).'])}
     ${faq('O UniHealth substitui um profissional?', ['Não. O app dá informações gerais e estimativas. Procure um médico, nutricionista ou profissional de educação física antes de mudar sua rotina, principalmente se tiver alguma condição de saúde.'])}
 
     <h2 id="excluir-conta">Excluir sua conta</h2>
@@ -233,7 +243,7 @@ page({
     <h2>Pelo app (na hora)</h2>
     <ol class="steps">
       <li>Abra o UniHealth e entre na sua conta.</li>
-      <li>Vá em <strong>Perfil → Conta e backup</strong>.</li>
+      <li>Vá em <strong>Perfil → Configurações → Conta e backup</strong>.</li>
       <li>Toque em <strong>Excluir conta</strong> e confirme.</li>
     </ol>
     <p>No fim, o app pergunta se você também quer apagar os dados guardados no celular.</p>
