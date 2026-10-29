@@ -70,7 +70,7 @@ ${script ? `<script>${script}</script>\n` : ''}</body>
 }
 
 // ---------- Início ----------
-// Visual editorial (29/10): "uni." gigante, o app num celular sobre o bloco de cor, texto na vertical e a versão girada.
+// Visual editorial (29/10), só preto, branco e cinza: manchete larga por cima do celular, bloco cinza, texto na vertical e a versão girada.
 const shot = (name, alt, lazy = true) =>
   `<div class="phone"><img src="/assets/app/${name}.png" alt="${alt}" width="390" height="844"${lazy ? ' loading="lazy"' : ''}></div>`;
 const tela = (name, title, text, alt) => `<figure class="tela">${shot(name, alt)}<h3>${title}</h3><p>${text}</p></figure>`;
@@ -86,7 +86,7 @@ page({
 <div class="hero">
   <div class="wrap">
     <div class="hero-text">
-      <h1><span class="mark" aria-hidden="true">uni.</span><span class="sr">UniHealth: treino, alimentação, água e sono num só app</span></h1>
+      <h1 class="manchete"><span>Comece</span><span>por hoje.</span></h1>
       <div class="hero-cols mono">
         <p><b>Treino e prato</b>Programas de 8 semanas, cargas, descanso e calorias da refeição por foto.</p>
         <p><b>Água e sono</b>Metas calculadas para o seu corpo, no mesmo quadro do dia.</p>
@@ -101,7 +101,7 @@ page({
       <div class="bloco" aria-hidden="true"></div>
       ${shot('hoje', 'Tela Hoje do UniHealth: treinos da semana, botões Treinar e Refeição', false)}
       <a class="seta" href="#dia" aria-label="Ver o app por dentro"><span aria-hidden="true">↓</span></a>
-      <p class="vertical" aria-hidden="true">Escolha o shape.<br>A gente monta o caminho.</p>
+      <p class="vertical" aria-hidden="true">Um dia<br>de cada vez.</p>
     </div>
     <p class="versao" aria-label="Versão ${VERSION}">${VERSION}<small>versão</small></p>
   </div>
@@ -143,12 +143,12 @@ page({
 <section class="poster">
   <div class="wrap">
     <div class="palco">
-      <p class="letras" aria-hidden="true"><span>Sha</span><span>pe.</span></p>
+      <p class="letras" aria-hidden="true"><span>Todo</span><span>dia.</span></p>
       ${shot('hoje-claro', 'Tela Hoje do UniHealth no tema claro')}
     </div>
     <div class="publico">
       <p class="eyebrow">Para quem é</p>
-      <h2 class="titulo">Escolha o shape.<br>A gente monta o caminho.</h2>
+      <h2 class="titulo">Do primeiro treino<br>ao de todo dia.</h2>
       <dl>
         <dt>Nunca treinou?</dt><dd>Primeiros Passos: duas sessões de 20 minutos por semana, em casa, sem equipamento.</dd>
         <dt>Ama academia?</dt><dd>Programas de até 6 dias, sugestão de aumento de carga e o histórico de cada exercício.</dd>
@@ -163,7 +163,7 @@ page({
   <div class="wrap">
     <div>
       <p class="eyebrow">Privacidade</p>
-      <h2 class="mark">seus<br>dados.</h2>
+      <h2 class="titulo">Seus<br>dados.</h2>
     </div>
     <ul>
       <li>Funciona sem conta: os dados ficam só no seu celular.</li>
@@ -180,11 +180,11 @@ page({
 
 <section class="final">
   <div class="wrap">
-    <h2 class="titulo">Bora<br>treinar.</h2>
+    <h2 class="titulo">Bora<br>começar.</h2>
     <div class="aside">
       <p>O UniHealth está em teste no Android e no iPhone. Escreva para entrar no grupo de testes.</p>
       <div class="cta">
-        <a class="btn btn-sinal" href="${QUERO}">Quero testar</a>
+        <a class="btn" href="${QUERO}">Quero testar</a>
         <a class="btn btn-ghost" href="/suporte.html">Dúvidas</a>
       </div>
     </div>

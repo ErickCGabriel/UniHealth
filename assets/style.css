@@ -1,6 +1,6 @@
 /*
  * UniHealth — site oficial (visual editorial, 29/10).
- * Papel cinza, tinta preta e um único acento (sinal). O app aparece no tema Obsidiana escuro.
+ * Só preto, branco e cinza: papel cinza, tinta preta e um bloco cinza médio. O app aparece no tema Obsidiana.
  * Archivo (largura variável) nos títulos, Manrope no texto, JetBrains Mono nos rótulos.
  */
 :root {
@@ -10,7 +10,7 @@
   --grafite: #161616;
   --nevoa: #6f6f6b;
   --linha: #c9c9c4;
-  --sinal: #ff4f1f;
+  --bloco: #bdbdb8;
   --branco: #f7f7f5;
   --max: 1240px;
   --gutter: clamp(16px, 4vw, 48px);
@@ -31,7 +31,7 @@ body {
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
-::selection { background: var(--sinal); color: var(--tinta); }
+::selection { background: var(--tinta); color: var(--branco); }
 .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -71,8 +71,6 @@ a { color: inherit; }
 .btn:hover::after { transform: translateX(4px); }
 .btn-ghost { background: transparent; color: var(--tinta); }
 .btn-ghost::after { border-left-color: var(--tinta); }
-.btn-sinal { background: var(--sinal); border-color: var(--sinal); color: var(--tinta); }
-.btn-sinal::after { border-left-color: #0000002a; }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .lead { font-size: 18px; line-height: 1.55; max-width: 420px; margin: 0 0 28px; }
 .note { color: var(--nevoa); font-size: 14px; margin-top: 16px; }
@@ -94,12 +92,22 @@ a { color: inherit; }
 
 /* ---------- herói ---------- */
 .hero { position: relative; padding: 8px 0 0; }
-.hero .wrap { position: relative; display: grid; grid-template-columns: 5fr 7fr; min-height: min(760px, calc(100svh - 76px)); }
-.hero-text { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: 24px 0 120px; }
-.mark {
-  font-family: var(--display); font-weight: 800; font-stretch: 100%;
-  font-size: clamp(120px, 19vw, 280px); line-height: 0.82; letter-spacing: -0.055em; margin: 0 0 36px -0.04em;
+/* minmax(0, …): a manchete larga transborda por cima do celular em vez de alargar a coluna. */
+.hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); min-height: min(760px, calc(100svh - 76px)); }
+.hero-text { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 24px 0 120px; }
+/*
+ * Manchete larga que passa por cima do celular. Branca com mix-blend-mode difference: fica preta sobre o
+ * papel e branca sobre a tela escura do app (como o "TO FASHION" da referência). Precisa ficar fora de
+ * qualquer contexto de empilhamento (por isso o .hero-text não tem z-index).
+ */
+.manchete {
+  position: relative; z-index: 3; margin: 0 0 36px; white-space: nowrap;
+  font-family: var(--display); font-weight: 900; font-stretch: 125%; text-transform: uppercase;
+  font-size: clamp(40px, 8.6vw, 140px); line-height: 0.9; letter-spacing: -0.02em;
+  color: #fff; mix-blend-mode: difference;
 }
+.manchete span { display: block; }
+.manchete span + span { padding-left: 0.9em; }
 .hero-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 460px; margin-bottom: 34px; color: var(--nevoa); }
 .hero-cols p { margin: 0; }
 .hero-cols b { color: var(--tinta); font-weight: 500; display: block; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 4px; }
@@ -112,10 +120,11 @@ a { color: inherit; }
 .hero-art { position: relative; }
 .hero-art .bloco {
   position: absolute; left: 0; right: calc(-1 * var(--gutter) - (100vw - min(100vw, var(--max))) / 2); bottom: 0; height: 58%;
-  background: var(--sinal); transform-origin: left center;
+  background: var(--bloco); transform-origin: left center;
 }
 .hero-art .phone { position: absolute; z-index: 1; width: min(330px, 62%); left: 22%; bottom: -1px; border-radius: 46px 46px 0 0; padding-bottom: 0; }
-.hero-art .phone img { border-radius: 36px 36px 0 0; aspect-ratio: 390 / 760; object-fit: cover; object-position: top; }
+/* Recorte mais curto: o topo do celular fica logo abaixo da manchete, que só cruza a borda preta. */
+.hero-art .phone img { border-radius: 36px 36px 0 0; aspect-ratio: 390 / 610; object-fit: cover; object-position: top; }
 .hero-art .seta { position: absolute; left: 0; bottom: 0; z-index: 2; }
 .vertical {
   position: absolute; right: 0; top: 24px; z-index: 2;
@@ -128,7 +137,8 @@ a { color: inherit; }
 @media (prefers-reduced-motion: no-preference) {
   .hero-art .bloco { animation: abre 0.8s cubic-bezier(0.2, 0.7, 0.1, 1) both 0.1s; }
   .hero-art .phone { animation: sobe 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) both 0.35s; }
-  .mark { animation: sobe 0.7s cubic-bezier(0.2, 0.7, 0.1, 1) both; }
+  .manchete span { animation: sobe 0.7s cubic-bezier(0.2, 0.7, 0.1, 1) both; }
+  .manchete span + span { animation-delay: 0.12s; }
   @keyframes abre { from { transform: scaleX(0); } }
   @keyframes sobe { from { transform: translateY(60px); opacity: 0; } }
 }
@@ -165,17 +175,17 @@ a { color: inherit; }
 .lista h3 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 100%; font-size: 19px; line-height: 1.15; letter-spacing: -0.01em; }
 .lista p { margin: 0; font-size: 15px; line-height: 1.5; color: #3d3d3a; }
 
-/* ---------- seção: pôster SHAPE ---------- */
+/* ---------- seção: pôster TODO DIA ---------- */
 .poster {
   position: relative; overflow: hidden; padding: clamp(64px, 9vw, 120px) 0;
   background-color: #efeeea;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.poster .wrap { display: grid; grid-template-columns: 7fr 5fr; gap: 32px; align-items: center; }
+.poster .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; align-items: center; }
 .palco { position: relative; min-height: clamp(420px, 52vw, 640px); }
 .letras {
   font-family: var(--display); font-weight: 900; font-stretch: 100%; text-transform: uppercase;
-  font-size: clamp(130px, 22vw, 300px); line-height: 0.8; letter-spacing: -0.04em; margin: 0;
+  font-size: clamp(96px, 13.2vw, 190px); line-height: 0.82; letter-spacing: -0.04em; margin: 0;
 }
 .letras span { display: block; }
 .palco .phone { position: absolute; width: clamp(180px, 22vw, 280px); right: 6%; top: 50%; transform: translateY(-46%) rotate(-4deg); }
@@ -188,12 +198,12 @@ a { color: inherit; }
 /* ---------- seção: privacidade (bloco preto) ---------- */
 .dados { background: var(--tinta); color: var(--branco); padding: clamp(72px, 10vw, 130px) 0 0; position: relative; }
 .dados .wrap { display: grid; grid-template-columns: 6fr 6fr; gap: 40px; align-items: start; }
-.dados .mark { font-size: clamp(84px, 12vw, 180px); margin: 0; }
+.dados .titulo { font-size: clamp(48px, 7.4vw, 108px); margin: 0; }
 .dados ul { list-style: none; margin: 0; padding: 0; }
 .dados li { padding: 18px 0; border-top: 1px solid #ffffff26; font-size: 17px; line-height: 1.5; }
 .dados li:last-child { border-bottom: 1px solid #ffffff26; }
 .dados .rodape-bloco { display: flex; justify-content: flex-end; margin-top: clamp(48px, 8vw, 96px); }
-.dados .seta { background: var(--sinal); color: var(--tinta); width: 72px; height: 72px; }
+.dados .seta { background: var(--branco); color: var(--tinta); width: 72px; height: 72px; }
 .dados .seta span { transform: rotate(-90deg); }
 .dados .seta:hover span { transform: rotate(-90deg) translateY(3px); }
 .dados .eyebrow { color: #8f8f8a; }
@@ -216,12 +226,12 @@ a { color: inherit; }
 .doc h2 { font-family: var(--display); font-weight: 800; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; margin: 44px 0 12px; }
 .doc p, .doc li { color: #262624; }
 .doc a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.doc a:hover { background: var(--sinal); }
+.doc a:hover { background: var(--papel-2); }
 .doc a.btn:hover { background: var(--tinta); }
 .doc ul { padding-left: 1.2em; }
 .doc li { margin: 6px 0; }
 .box { background: var(--branco); padding: 22px 24px; margin: 20px 0; }
-.box.accent { border-left: 6px solid var(--sinal); }
+.box.accent { border-left: 6px solid var(--tinta); }
 details { border-top: 1px solid var(--tinta); margin: 0; }
 details:last-of-type { border-bottom: 1px solid var(--tinta); }
 summary { cursor: pointer; font-weight: 700; padding: 18px 0; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
@@ -244,13 +254,13 @@ footer nav { display: flex; flex-wrap: wrap; gap: 20px; }
 footer a { color: #9c9c97; text-decoration: none; }
 footer a:hover { color: var(--branco); }
 
-a:focus-visible, summary:focus-visible, .btn:focus-visible { outline: 2px solid var(--sinal); outline-offset: 3px; }
+a:focus-visible, summary:focus-visible, .btn:focus-visible { outline: 2px solid var(--tinta); outline-offset: 3px; }
 
 /* ---------- celular ---------- */
 @media (max-width: 860px) {
   .hero .wrap { grid-template-columns: 1fr; min-height: 0; }
   .hero-text { padding: 12px 0 36px 0; }
-  .mark { margin-bottom: 26px; }
+  .manchete { margin-bottom: 26px; }
   .vertical { top: 18px; font-size: 13px; }
   .versao { display: none; }
   .hero-art { height: 520px; margin: 0 calc(-1 * var(--gutter)); }
