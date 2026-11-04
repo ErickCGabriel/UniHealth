@@ -299,6 +299,7 @@ for (const [id, doc] of Object.entries(legal.docs)) {
 
 // ---------- Convite (link clicável no WhatsApp que abre o app) ----------
 // /convite?g=CODIGO -> entrar no grupo   |   /convite?u=usuario -> adicionar amigo   |   /convite?t=CODIGO -> treino compartilhado
+// /convite?i=CODIGO -> indicação de amigo (1.1)
 // O WhatsApp não deixa tocar em links "unihealth://", então o app compartilha este endereço
 // e a página abre o app (ou mostra o código e como conseguir o app).
 page({
@@ -327,6 +328,7 @@ page({
   var g = (q.get('g') || '').trim().toUpperCase();
   var u = (q.get('u') || '').trim().toLowerCase().replace(/^@/, '');
   var tr = (q.get('t') || '').trim().toUpperCase();
+  var ind = (q.get('i') || '').trim().toUpperCase();
   var $ = function (id) { return document.getElementById(id); };
   var path = '';
   if (/^[A-Z0-9]{4,12}$/.test(g)) {
@@ -345,6 +347,14 @@ page({
     $('inv-label').textContent = 'Código do treino';
     $('inv-code').textContent = tr;
     $('inv-hint').textContent = '';
+  } else if (/^[A-Z0-9]{6,10}$/.test(ind)) {
+    path = 'indicar/' + ind;
+    $('inv-kind').textContent = 'Indicação';
+    $('inv-title').textContent = 'Ganhe 7 dias de Plus';
+    $('inv-text').textContent = 'Crie sua conta no UniHealth com este código e use o app em 3 dias diferentes: você e quem te indicou ganham 7 dias de Plus.';
+    $('inv-label').textContent = 'Código de indicação';
+    $('inv-code').textContent = ind;
+    $('inv-hint').textContent = ' ou digite o código em Perfil, Indicar';
   } else if (/^[a-z0-9_.]{3,20}$/.test(u)) {
     path = 'social/amigo/' + u;
     $('inv-kind').textContent = 'Convite de amizade';

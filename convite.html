@@ -50,7 +50,7 @@
 </main>
 <footer>
   <div class="wrap">
-    <span>© 2026 Erick Cruz Gabriel · UniHealth 0.17</span>
+    <span>© 2026 Erick Cruz Gabriel · UniHealth 1.1</span>
     <nav aria-label="Rodapé">
       <a href="/suporte.html">Suporte</a>
       <a href="/excluir-conta.html">Excluir conta</a>
@@ -65,6 +65,7 @@
   var g = (q.get('g') || '').trim().toUpperCase();
   var u = (q.get('u') || '').trim().toLowerCase().replace(/^@/, '');
   var tr = (q.get('t') || '').trim().toUpperCase();
+  var ind = (q.get('i') || '').trim().toUpperCase();
   var $ = function (id) { return document.getElementById(id); };
   var path = '';
   if (/^[A-Z0-9]{4,12}$/.test(g)) {
@@ -83,6 +84,14 @@
     $('inv-label').textContent = 'Código do treino';
     $('inv-code').textContent = tr;
     $('inv-hint').textContent = '';
+  } else if (/^[A-Z0-9]{6,10}$/.test(ind)) {
+    path = 'indicar/' + ind;
+    $('inv-kind').textContent = 'Indicação';
+    $('inv-title').textContent = 'Ganhe 7 dias de Plus';
+    $('inv-text').textContent = 'Crie sua conta no UniHealth com este código e use o app em 3 dias diferentes: você e quem te indicou ganham 7 dias de Plus.';
+    $('inv-label').textContent = 'Código de indicação';
+    $('inv-code').textContent = ind;
+    $('inv-hint').textContent = ' ou digite o código em Perfil, Indicar';
   } else if (/^[a-z0-9_.]{3,20}$/.test(u)) {
     path = 'social/amigo/' + u;
     $('inv-kind').textContent = 'Convite de amizade';
