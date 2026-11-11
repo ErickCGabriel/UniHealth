@@ -11,12 +11,15 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="UniHealth: Treino e Saúde">
 <meta property="og:description" content="Treino, alimentação, água e sono num só app, com metas feitas para o seu corpo e desafios com os amigos. Do zero ao avançado.">
-<meta property="og:image" content="https://unihealthapp.com.br/assets/icon.png">
+<meta property="og:image" content="https://unihealthapp.com.br/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:url" content="https://unihealthapp.com.br/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/style.css?v=93dc06e3">
 </head>
 <body>
 <header class="nav">
@@ -34,16 +37,17 @@
 <div class="hero">
   <div class="wrap">
     <div class="hero-text">
-      <h1 class="manchete"><span>Comece</span><span>por hoje.</span></h1>
+      <h1 class="manchete" id="manchete"><span>Comece</span><span>por hoje.</span></h1>
       <div class="hero-cols mono">
         <p><b>Treino e prato</b>Programas de 8 semanas, cargas, descanso e calorias da refeição por foto.</p>
         <p><b>Água e sono</b>Metas calculadas para o seu corpo, no mesmo quadro do dia.</p>
       </div>
       <p class="lead">Para quem nunca treinou e para quem treina todo dia. O UniHealth monta as metas e mostra o dia inteiro num lugar só.</p>
       <div class="cta">
-        <a class="btn" href="mailto:erickcgabriel123@gmail.com?subject=Quero%20testar%20o%20UniHealth">Quero testar</a>
+        <a class="btn so-ios" href="https://apps.apple.com/br/app/unihealth/id6821770645" data-ev="loja">Baixar na App Store</a>
+        <a class="btn so-android" href="#testar" data-ev="quero_testar">Quero testar no Android</a>
       </div>
-      <p class="note">Em teste no Android (Google Play) e no iPhone (TestFlight).</p>
+      <p class="note">Já na App Store. No Android, em teste na Google Play.</p>
     </div>
     <div class="hero-art">
       <div class="bloco" aria-hidden="true"></div>
@@ -83,7 +87,7 @@
       <li><h3>Sono e recuperação</h3><p>Registre a noite ou traga do relógio, com as fases do sono, para saber quando ir com tudo.</p></li>
       <li><h3>Ciclo menstrual</h3><p>Metas ajustadas em cada fase. Opcional e só para quem quiser.</p></li>
       <li><h3>Amigos e grupos</h3><p>Desafios de dias treinados, passos, cardio ou Uni Pontos, com pódio, reações e cutucadas.</p></li>
-      <li><h3>900+ exercícios</h3><p>Biblioteca com fotos do movimento, separada por músculo, para montar o treino do seu jeito.</p></li>
+      <li><h3>876 exercícios</h3><p>Biblioteca com fotos do movimento, separada por músculo, para montar o treino do seu jeito.</p></li>
     </ul>
   </div>
 </section>
@@ -115,10 +119,10 @@
     </div>
     <ul>
       <li>Funciona sem conta: os dados ficam só no seu celular.</li>
-      <li>Com conta, backup na nuvem e acesso em qualquer aparelho.</li>
-      <li>Sem anúncios e sem venda de dados.</li>
-      <li>Na parte social, só o resumo que você permitir. Peso, refeições e saúde nunca são compartilhados.</li>
-      <li>Excluir a conta apaga tudo da nuvem na hora, pelo próprio app.</li>
+      <li>Com conta, backup na nuvem e acesso em qualquer aparelho. A foto do prato é enviada para análise por IA.</li>
+      <li>Sem venda de dados.</li>
+      <li>Na parte social, só o resumo que você permitir. Peso e saúde nunca são compartilhados; refeições, só as que você escolher mostrar num grupo.</li>
+      <li>Excluir a conta pelo próprio app apaga seus dados da nuvem.</li>
     </ul>
   </div>
   <div class="wrap rodape-bloco">
@@ -126,15 +130,29 @@
   </div>
 </section>
 
-<section class="final">
+<section class="final" id="testar">
   <div class="wrap">
     <h2 class="titulo">Bora<br>começar.</h2>
     <div class="aside">
-      <p>O UniHealth está em teste no Android e no iPhone. Escreva para entrar no grupo de testes.</p>
-      <div class="cta">
-        <a class="btn" href="mailto:erickcgabriel123@gmail.com?subject=Quero%20testar%20o%20UniHealth">Quero testar</a>
-        <a class="btn btn-ghost" href="/suporte.html">Dúvidas</a>
+      <div class="so-ios-bloco">
+        <p>No iPhone, o UniHealth já está na App Store.</p>
+        <div class="cta"><a class="btn" href="https://apps.apple.com/br/app/unihealth/id6821770645" data-ev="loja">Baixar na App Store</a></div>
       </div>
+      <form class="teste" id="form-teste" novalidate>
+        <p class="eyebrow">Teste no Android</p>
+        <p>Deixe seu e-mail e mandamos o convite do teste da Google Play.</p>
+        <label class="campo">E-mail
+          <input type="email" name="email" autocomplete="email" inputmode="email" required maxlength="254" placeholder="voce@email.com">
+        </label>
+        <fieldset class="campo">
+          <legend>Seu celular</legend>
+          <label class="opcao"><input type="radio" name="platform" value="android" required> Android</label>
+          <label class="opcao"><input type="radio" name="platform" value="ios"> iPhone</label>
+        </fieldset>
+        <label class="aceite"><input type="checkbox" name="consent" required> <span>Aceito receber o convite do teste por e-mail e concordo com a <a href="/privacidade.html">Política de Privacidade</a>.</span></label>
+        <div class="cta"><button class="btn" type="submit">Quero testar</button><a class="btn btn-ghost" href="/suporte.html">Dúvidas</a></div>
+        <p class="form-msg" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>
@@ -151,5 +169,95 @@
     </nav>
   </div>
 </footer>
+<script>// Página inicial: medição própria (Supabase, sem cookies e sem terceiros), botões por celular e título A/B (?t=b).
+// O build.mjs embute este arquivo no fim da página (e troca erickcgabriel123@gmail.com).
+(() => {
+  const API = 'https://hdscvrkwrqewswkdbyjh.supabase.co/rest/v1/rpc/';
+  const KEY = 'sb_publishable_0wr3NWqLTdw-lPA1n9FIlw_wOVLeqxK';
+  const EMAIL = 'erickcgabriel123@gmail.com';
+  const STORE = 'https://apps.apple.com/br/app/unihealth/id6821770645';
+  const q = new URLSearchParams(location.search);
+  const store = (k, v) => {
+    try {
+      if (v === undefined) return JSON.parse(sessionStorage.getItem(k) || 'null');
+      sessionStorage.setItem(k, JSON.stringify(v));
+    } catch {
+      return null;
+    }
+  };
+
+  // Origem: utm_source do link; sem ele, um palpite pelo site de onde a pessoa veio.
+  let ref = '';
+  try {
+    ref = document.referrer ? new URL(document.referrer).hostname : '';
+  } catch {}
+  const guess = /instagram/.test(ref) ? 'instagram' : /tiktok/.test(ref) ? 'tiktok' : /google\./.test(ref) ? 'google' : /facebook/.test(ref) ? 'facebook' : '';
+  let utm = store('uh-utm');
+  if (q.get('utm_source') || !utm) utm = { s: q.get('utm_source') || guess, m: q.get('utm_medium') || '', c: q.get('utm_campaign') || '' };
+  store('uh-utm', utm);
+
+  // Título A/B: ?t=b mostra a versão B e fica guardado na sessão.
+  const variant = q.get('t') === 'a' || q.get('t') === 'b' ? q.get('t') : store('uh-t') || 'a';
+  store('uh-t', variant);
+  if (variant === 'b') {
+    const h = document.getElementById('manchete');
+    if (h) {
+      h.innerHTML = '<span>Treino, prato</span><span>e sono.</span><span>Um app só.</span>';
+      h.classList.add('manchete-b');
+    }
+  }
+
+  const ua = navigator.userAgent;
+  const plat = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? 'ios' : /Android/.test(ua) ? 'android' : 'outro';
+  document.documentElement.classList.add('plat-' + plat);
+
+  const call = (fn, body) =>
+    fetch(API + fn, { method: 'POST', keepalive: true, headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const track = (kind) =>
+    call('site_track', { p_kind: kind, p_variant: variant, p_platform: plat, p_source: utm.s, p_medium: utm.m, p_campaign: utm.c }).catch(() => {});
+  if (!store('uh-visita')) {
+    store('uh-visita', 1);
+    track('visita');
+  }
+
+  // Link da App Store com a origem (aparece no App Store Connect em Análises → Fontes).
+  const ct = encodeURIComponent((utm.s || 'site').slice(0, 40));
+  document.querySelectorAll('a[data-ev="loja"]').forEach((a) => (a.href = STORE + '?ct=' + ct));
+  document.querySelectorAll('[data-ev]').forEach((el) => el.addEventListener('click', () => track(el.dataset.ev)));
+
+  const form = document.getElementById('form-teste');
+  if (!form) return;
+  if (plat !== 'outro') {
+    const r = form.querySelector('input[value="' + plat + '"]');
+    if (r) r.checked = true;
+  }
+  const msg = form.querySelector('.form-msg');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const email = String(d.get('email') || '').trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return void (msg.textContent = 'Confira o e-mail.');
+    if (!d.get('platform')) return void (msg.textContent = 'Escolha Android ou iPhone.');
+    if (!d.get('consent')) return void (msg.textContent = 'Para mandar o convite, marque a caixa de aceite.');
+    const button = form.querySelector('button');
+    button.disabled = true;
+    msg.textContent = 'Enviando...';
+    try {
+      const r = await call('site_signup', {
+        p_email: email, p_platform: d.get('platform'), p_consent: true, p_variant: variant, p_source: utm.s, p_medium: utm.m, p_campaign: utm.c,
+      });
+      if (!r.ok || (await r.json()) !== 'ok') throw new Error();
+      form.classList.add('enviado');
+      msg.innerHTML =
+        d.get('platform') === 'ios'
+          ? 'Pronto! No iPhone não precisa esperar: <a href="' + STORE + '?ct=' + ct + '">baixe na App Store</a>.'
+          : 'Pronto! Em até 2 dias úteis você recebe no e-mail o convite do teste da Google Play, com o link para instalar. Confira também a caixa de spam.';
+    } catch {
+      button.disabled = false;
+      msg.innerHTML = 'Não deu para enviar agora. Tente de novo ou escreva para <a href="mailto:' + EMAIL + '">' + EMAIL + '</a>.';
+    }
+  });
+})();
+</script>
 </body>
 </html>

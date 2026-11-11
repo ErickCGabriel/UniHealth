@@ -2,6 +2,7 @@
 // A Política de Privacidade e os Termos vêm do texto do app (../unihealth/src/data/legal.json),
 // para o site e o app dizerem sempre a mesma coisa.
 // Uso: node build.mjs
+import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const legal = JSON.parse(readFileSync(new URL('../unihealth/src/data/legal.json', import.meta.url), 'utf8'));
@@ -9,11 +10,13 @@ const EMAIL = legal.email;
 const SITE = 'https://unihealthapp.com.br';
 // Versão atual do app (aparece girada no canto do topo da página inicial).
 const VERSION = JSON.parse(readFileSync(new URL('../unihealth/app.json', import.meta.url), 'utf8')).expo.version.replace(/\.0$/, '');
+// Versão do CSS no link, para quem já visitou não ficar com o estilo antigo em cache.
+const CSS_V = createHash('sha1').update(readFileSync(new URL('./assets/style.css', import.meta.url))).digest('hex').slice(0, 8);
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const fill = (s) => esc(s.replaceAll('{{controller}}', legal.controller).replaceAll('{{email}}', legal.email));
 
 
-function page({ file, title, description, body, current, script = '' }) {
+function page({ file, title, description, body, current, script = '', image = 'icon.png' }) {
   const link = (href, label, cls = '') =>
     `<a href="${href}"${cls ? ` class="${cls}"` : ''}${current === href ? ' aria-current="page"' : ''}>${label}</a>`;
   const html = `<!doctype html>
@@ -29,12 +32,12 @@ function page({ file, title, description, body, current, script = '' }) {
 <meta property="og:type" content="website">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
-<meta property="og:image" content="${SITE}/assets/icon.png">
+<meta property="og:image" content="${SITE}/assets/${image}">${image === 'icon.png' ? '' : '\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta name="twitter:card" content="summary_large_image">'}
 <meta property="og:url" content="${SITE}/${file === 'index.html' ? '' : file}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/style.css?v=${CSS_V}">
 </head>
 <body>
 <header class="nav">
@@ -75,7 +78,16 @@ const shot = (name, alt, lazy = true) =>
   `<div class="phone"><img src="/assets/app/${name}.png" alt="${alt}" width="390" height="844"${lazy ? ' loading="lazy"' : ''}></div>`;
 const tela = (name, title, text, alt) => `<figure class="tela">${shot(name, alt)}<h3>${title}</h3><p>${text}</p></figure>`;
 const recurso = (title, text) => `<li><h3>${title}</h3><p>${text}</p></li>`;
-const QUERO = `mailto:${EMAIL}?subject=Quero%20testar%20o%20UniHealth`;
+// Botões por celular (o script marca <html> com plat-ios ou plat-android; sem script, aparecem os dois).
+const APP_STORE = 'https://apps.apple.com/br/app/unihealth/id6821770645';
+const CTA = `<div class="cta">
+        <a class="btn so-ios" href="${APP_STORE}" data-ev="loja">Baixar na App Store</a>
+        <a class="btn so-android" href="#testar" data-ev="quero_testar">Quero testar no Android</a>
+      </div>`;
+
+// Medição própria (tabelas site_events e site_signups no Supabase, sem cookies e sem terceiros) e título A/B
+// pela URL (?t=b). A origem vem do utm_source do link (instagram, tiktok, personal, grupo, indicacao).
+const SITE_SCRIPT = readFileSync(new URL('./assets/site.js', import.meta.url), 'utf8').replaceAll('{{email}}', EMAIL);
 
 page({
   file: 'index.html',
@@ -86,16 +98,14 @@ page({
 <div class="hero">
   <div class="wrap">
     <div class="hero-text">
-      <h1 class="manchete"><span>Comece</span><span>por hoje.</span></h1>
+      <h1 class="manchete" id="manchete"><span>Comece</span><span>por hoje.</span></h1>
       <div class="hero-cols mono">
         <p><b>Treino e prato</b>Programas de 8 semanas, cargas, descanso e calorias da refeição por foto.</p>
         <p><b>Água e sono</b>Metas calculadas para o seu corpo, no mesmo quadro do dia.</p>
       </div>
       <p class="lead">Para quem nunca treinou e para quem treina todo dia. O UniHealth monta as metas e mostra o dia inteiro num lugar só.</p>
-      <div class="cta">
-        <a class="btn" href="${QUERO}">Quero testar</a>
-      </div>
-      <p class="note">Em teste no Android (Google Play) e no iPhone (TestFlight).</p>
+      ${CTA}
+      <p class="note">Já na App Store. No Android, em teste na Google Play.</p>
     </div>
     <div class="hero-art">
       <div class="bloco" aria-hidden="true"></div>
@@ -135,7 +145,7 @@ page({
       ${recurso('Sono e recuperação', 'Registre a noite ou traga do relógio, com as fases do sono, para saber quando ir com tudo.')}
       ${recurso('Ciclo menstrual', 'Metas ajustadas em cada fase. Opcional e só para quem quiser.')}
       ${recurso('Amigos e grupos', 'Desafios de dias treinados, passos, cardio ou Uni Pontos, com pódio, reações e cutucadas.')}
-      ${recurso('900+ exercícios', 'Biblioteca com fotos do movimento, separada por músculo, para montar o treino do seu jeito.')}
+      ${recurso('876 exercícios', 'Biblioteca com fotos do movimento, separada por músculo, para montar o treino do seu jeito.')}
     </ul>
   </div>
 </section>
@@ -167,10 +177,10 @@ page({
     </div>
     <ul>
       <li>Funciona sem conta: os dados ficam só no seu celular.</li>
-      <li>Com conta, backup na nuvem e acesso em qualquer aparelho.</li>
-      <li>Sem anúncios e sem venda de dados.</li>
-      <li>Na parte social, só o resumo que você permitir. Peso, refeições e saúde nunca são compartilhados.</li>
-      <li>Excluir a conta apaga tudo da nuvem na hora, pelo próprio app.</li>
+      <li>Com conta, backup na nuvem e acesso em qualquer aparelho. A foto do prato é enviada para análise por IA.</li>
+      <li>Sem venda de dados.</li>
+      <li>Na parte social, só o resumo que você permitir. Peso e saúde nunca são compartilhados; refeições, só as que você escolher mostrar num grupo.</li>
+      <li>Excluir a conta pelo próprio app apaga seus dados da nuvem.</li>
     </ul>
   </div>
   <div class="wrap rodape-bloco">
@@ -178,18 +188,34 @@ page({
   </div>
 </section>
 
-<section class="final">
+<section class="final" id="testar">
   <div class="wrap">
     <h2 class="titulo">Bora<br>começar.</h2>
     <div class="aside">
-      <p>O UniHealth está em teste no Android e no iPhone. Escreva para entrar no grupo de testes.</p>
-      <div class="cta">
-        <a class="btn" href="${QUERO}">Quero testar</a>
-        <a class="btn btn-ghost" href="/suporte.html">Dúvidas</a>
+      <div class="so-ios-bloco">
+        <p>No iPhone, o UniHealth já está na App Store.</p>
+        <div class="cta"><a class="btn" href="${APP_STORE}" data-ev="loja">Baixar na App Store</a></div>
       </div>
+      <form class="teste" id="form-teste" novalidate>
+        <p class="eyebrow">Teste no Android</p>
+        <p>Deixe seu e-mail e mandamos o convite do teste da Google Play.</p>
+        <label class="campo">E-mail
+          <input type="email" name="email" autocomplete="email" inputmode="email" required maxlength="254" placeholder="voce@email.com">
+        </label>
+        <fieldset class="campo">
+          <legend>Seu celular</legend>
+          <label class="opcao"><input type="radio" name="platform" value="android" required> Android</label>
+          <label class="opcao"><input type="radio" name="platform" value="ios"> iPhone</label>
+        </fieldset>
+        <label class="aceite"><input type="checkbox" name="consent" required> <span>Aceito receber o convite do teste por e-mail e concordo com a <a href="/privacidade.html">Política de Privacidade</a>.</span></label>
+        <div class="cta"><button class="btn" type="submit">Quero testar</button><a class="btn btn-ghost" href="/suporte.html">Dúvidas</a></div>
+        <p class="form-msg" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>`,
+  image: 'og.png',
+  script: SITE_SCRIPT,
 });
 
 // ---------- Suporte ----------
