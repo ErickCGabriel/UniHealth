@@ -81,7 +81,7 @@ const recurso = (title, text) => `<li><h3>${title}</h3><p>${text}</p></li>`;
 // Botões por celular (o script marca <html> com plat-ios ou plat-android; sem script, aparecem os dois).
 const APP_STORE = 'https://apps.apple.com/br/app/unihealth/id6821770645';
 const CTA = `<div class="cta">
-        <a class="btn so-ios" href="${APP_STORE}" data-ev="loja">Baixar na App Store</a>
+        <a class="btn so-ios" href="${APP_STORE}" data-ev="loja">Baixar para iPhone</a>
         <a class="btn so-android" href="#testar" data-ev="quero_testar">Quero testar no Android</a>
       </div>`;
 
@@ -105,7 +105,7 @@ page({
       </div>
       <p class="lead">Para quem nunca treinou e para quem treina todo dia. O UniHealth monta as metas e mostra o dia inteiro num lugar só.</p>
       ${CTA}
-      <p class="note">Já na App Store. No Android, em teste na Google Play.</p>
+      <p class="note">Já disponível para iPhone. No Android, em teste.</p>
     </div>
     <div class="hero-art">
       <div class="bloco" aria-hidden="true"></div>
@@ -193,8 +193,8 @@ page({
     <h2 class="titulo">Bora<br>começar.</h2>
     <div class="aside">
       <div class="so-ios-bloco">
-        <p>No iPhone, o UniHealth já está na App Store.</p>
-        <div class="cta"><a class="btn" href="${APP_STORE}" data-ev="loja">Baixar na App Store</a></div>
+        <p>No iPhone, o UniHealth já está disponível para baixar.</p>
+        <div class="cta"><a class="btn" href="${APP_STORE}" data-ev="loja">Baixar para iPhone</a></div>
       </div>
       <form class="teste" id="form-teste" novalidate>
         <p class="eyebrow">Teste no Android</p>

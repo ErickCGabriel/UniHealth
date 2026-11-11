@@ -79,7 +79,7 @@
       form.classList.add('enviado');
       msg.innerHTML =
         d.get('platform') === 'ios'
-          ? 'Pronto! No iPhone não precisa esperar: <a href="' + STORE + '?ct=' + ct + '">baixe na App Store</a>.'
+          ? 'Pronto! No iPhone não precisa esperar: <a href="' + STORE + '?ct=' + ct + '">baixe para iPhone</a>.'
           : 'Pronto! Em até 2 dias úteis você recebe no e-mail o convite do teste da Google Play, com o link para instalar. Confira também a caixa de spam.';
     } catch {
       button.disabled = false;
