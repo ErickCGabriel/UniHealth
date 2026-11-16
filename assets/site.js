@@ -1,10 +1,10 @@
 // Página inicial: medição própria (Supabase, sem cookies e sem terceiros), botões por celular e título A/B (?t=b).
-// O build.mjs embute este arquivo no fim da página (e troca {{email}}).
+// O build.mjs embute este arquivo no fim da página.
 (() => {
   const API = 'https://hdscvrkwrqewswkdbyjh.supabase.co/rest/v1/rpc/';
   const KEY = 'sb_publishable_0wr3NWqLTdw-lPA1n9FIlw_wOVLeqxK';
-  const EMAIL = '{{email}}';
   const STORE = 'https://apps.apple.com/br/app/unihealth/id6821770645';
+  const PLAY = 'https://play.google.com/store/apps/details?id=com.erickgabriel.unihealth';
   const q = new URLSearchParams(location.search);
   const store = (k, v) => {
     try {
@@ -49,41 +49,10 @@
     track('visita');
   }
 
-  // Link da App Store com a origem (aparece no App Store Connect em Análises → Fontes).
+  // Links das lojas com a origem: App Store em Análises → Fontes (ct) e Google Play em Aquisição (referrer com utm).
   const ct = encodeURIComponent((utm.s || 'site').slice(0, 40));
-  document.querySelectorAll('a[data-ev="loja"]').forEach((a) => (a.href = STORE + '?ct=' + ct));
+  const playRef = encodeURIComponent('utm_source=' + (utm.s || 'site').slice(0, 40) + '&utm_medium=' + (utm.m || 'site').slice(0, 40) + (utm.c ? '&utm_campaign=' + utm.c.slice(0, 60) : ''));
+  document.querySelectorAll('a[href^="' + STORE + '"]').forEach((a) => (a.href = STORE + '?ct=' + ct));
+  document.querySelectorAll('a[href^="' + PLAY + '"]').forEach((a) => (a.href = PLAY + '&referrer=' + playRef));
   document.querySelectorAll('[data-ev]').forEach((el) => el.addEventListener('click', () => track(el.dataset.ev)));
-
-  const form = document.getElementById('form-teste');
-  if (!form) return;
-  if (plat !== 'outro') {
-    const r = form.querySelector('input[value="' + plat + '"]');
-    if (r) r.checked = true;
-  }
-  const msg = form.querySelector('.form-msg');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const d = new FormData(form);
-    const email = String(d.get('email') || '').trim();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return void (msg.textContent = 'Confira o e-mail.');
-    if (!d.get('platform')) return void (msg.textContent = 'Escolha Android ou iPhone.');
-    if (!d.get('consent')) return void (msg.textContent = 'Para mandar o convite, marque a caixa de aceite.');
-    const button = form.querySelector('button');
-    button.disabled = true;
-    msg.textContent = 'Enviando...';
-    try {
-      const r = await call('site_signup', {
-        p_email: email, p_platform: d.get('platform'), p_consent: true, p_variant: variant, p_source: utm.s, p_medium: utm.m, p_campaign: utm.c,
-      });
-      if (!r.ok || (await r.json()) !== 'ok') throw new Error();
-      form.classList.add('enviado');
-      msg.innerHTML =
-        d.get('platform') === 'ios'
-          ? 'Pronto! No iPhone não precisa esperar: <a href="' + STORE + '?ct=' + ct + '">baixe para iPhone</a>.'
-          : 'Pronto! Em até 2 dias úteis você recebe no e-mail o convite do teste da Google Play, com o link para instalar. Confira também a caixa de spam.';
-    } catch {
-      button.disabled = false;
-      msg.innerHTML = 'Não deu para enviar agora. Tente de novo ou escreva para <a href="mailto:' + EMAIL + '">' + EMAIL + '</a>.';
-    }
-  });
 })();

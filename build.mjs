@@ -45,6 +45,7 @@ function page({ file, title, description, body, current, script = '', image = 'i
     <a class="brand" href="/"><img src="/assets/icon.png" alt="">UniHealth</a>
     <nav class="nav-links" aria-label="Principal">
       ${link('/#recursos', 'Recursos', 'hide-sm')}
+      ${link('/#planos', 'Planos', 'hide-sm')}
       ${link('/suporte.html', 'Suporte')}
       ${link('/privacidade.html', 'Privacidade', 'hide-sm')}
     </nav>
@@ -79,11 +80,15 @@ const shot = (name, alt, lazy = true) =>
 const tela = (name, title, text, alt) => `<figure class="tela">${shot(name, alt)}<h3>${title}</h3><p>${text}</p></figure>`;
 const recurso = (title, text) => `<li><h3>${title}</h3><p>${text}</p></li>`;
 // Botões por celular (o script marca <html> com plat-ios ou plat-android; sem script, aparecem os dois).
+// No computador aparecem os dois. Lançado nas duas lojas em 15 e 16/11/2026.
 const APP_STORE = 'https://apps.apple.com/br/app/unihealth/id6821770645';
+const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.erickgabriel.unihealth';
 const CTA = `<div class="cta">
-        <a class="btn so-ios" href="${APP_STORE}" data-ev="loja">Baixar para iPhone</a>
-        <a class="btn so-android" href="#testar" data-ev="quero_testar">Quero testar no Android</a>
+        <a class="btn so-ios" href="${APP_STORE}" data-ev="loja" data-loja="ios">Baixar para iPhone</a>
+        <a class="btn so-android" href="${PLAY_STORE}" data-ev="loja" data-loja="android">Baixar para Android</a>
       </div>`;
+const plano = (nome, preco, itens, destaque = false) =>
+  `<li${destaque ? ' class="destaque"' : ''}><h3>${nome}</h3><p class="preco mono">${preco}</p><ul>${itens.map((i) => `<li>${i}</li>`).join('')}</ul></li>`;
 
 // Medição própria (tabelas site_events e site_signups no Supabase, sem cookies e sem terceiros) e título A/B
 // pela URL (?t=b). A origem vem do utm_source do link (instagram, tiktok, personal, grupo, indicacao).
@@ -98,6 +103,7 @@ page({
 <div class="hero">
   <div class="wrap">
     <div class="hero-text">
+      <p class="selo mono"><span aria-hidden="true"></span>Agora na App Store e no Google Play</p>
       <h1 class="manchete" id="manchete"><span>Comece</span><span>por hoje.</span></h1>
       <div class="hero-cols mono">
         <p><b>Treino e prato</b>Programas de 8 semanas, cargas, descanso e calorias da refeição por foto.</p>
@@ -105,7 +111,7 @@ page({
       </div>
       <p class="lead">Para quem nunca treinou e para quem treina todo dia. O UniHealth monta as metas e mostra o dia inteiro num lugar só.</p>
       ${CTA}
-      <p class="note">Já disponível para iPhone. No Android, em teste.</p>
+      <p class="note">Grátis para baixar no iPhone e no Android.</p>
     </div>
     <div class="hero-art">
       <div class="bloco" aria-hidden="true"></div>
@@ -169,6 +175,37 @@ page({
   </div>
 </section>
 
+<section class="planos" id="planos">
+  <div class="wrap">
+    <div class="cabeca">
+      <h2 class="titulo">Grátis para<br>começar</h2>
+      <p>Tudo o que é de saúde funciona no plano grátis. Os planos pagos tiram os anúncios e liberam mais. O preço aparece no app antes de assinar, e dá para cancelar pela loja quando quiser.</p>
+    </div>
+    <ul class="lista-planos">
+      ${plano('Base', 'Grátis, com anúncios', [
+        'Treinos, rotinas, treino livre e recordes',
+        'Busca de alimentos (TACO), água, sono e ciclo',
+        'Foto do prato com IA: 5 por semana',
+        'Amigos, desafios e 1 grupo de até 15 pessoas',
+        'Importar do Hevy e do MyFitnessPal',
+      ])}
+      ${plano('Plus', 'Mensal ou anual', [
+        'Sem anúncios',
+        'Foto do prato com IA: 3 por dia',
+        'Todos os programas e personagens',
+        'Receitas ilimitadas e fotos de antes e depois',
+        'Até 5 grupos de até 30 pessoas',
+      ], true)}
+      ${plano('Pro', 'Mensal ou anual', [
+        'Tudo do Plus',
+        'Foto do prato com IA: 5 por dia',
+        'Modo turma, para personal e professores',
+        'Até 10 grupos de até 100 pessoas',
+      ])}
+    </ul>
+  </div>
+</section>
+
 <section class="dados">
   <div class="wrap">
     <div>
@@ -188,29 +225,16 @@ page({
   </div>
 </section>
 
-<section class="final" id="testar">
+<section class="final" id="baixar">
   <div class="wrap">
     <h2 class="titulo">Bora<br>começar.</h2>
     <div class="aside">
-      <div class="so-ios-bloco">
-        <p>No iPhone, o UniHealth já está disponível para baixar.</p>
-        <div class="cta"><a class="btn" href="${APP_STORE}" data-ev="loja">Baixar para iPhone</a></div>
+      <p>Baixe, responda algumas perguntas sobre você e o app monta suas metas. Não precisa criar conta para começar.</p>
+      <div class="cta">
+        <a class="btn so-ios" href="${APP_STORE}" data-ev="loja" data-loja="ios">Baixar para iPhone</a>
+        <a class="btn so-android" href="${PLAY_STORE}" data-ev="loja" data-loja="android">Baixar para Android</a>
+        <a class="btn btn-ghost" href="/suporte.html">Dúvidas</a>
       </div>
-      <form class="teste" id="form-teste" novalidate>
-        <p class="eyebrow">Teste no Android</p>
-        <p>Deixe seu e-mail e mandamos o convite do teste da Google Play.</p>
-        <label class="campo">E-mail
-          <input type="email" name="email" autocomplete="email" inputmode="email" required maxlength="254" placeholder="voce@email.com">
-        </label>
-        <fieldset class="campo">
-          <legend>Seu celular</legend>
-          <label class="opcao"><input type="radio" name="platform" value="android" required> Android</label>
-          <label class="opcao"><input type="radio" name="platform" value="ios"> iPhone</label>
-        </fieldset>
-        <label class="aceite"><input type="checkbox" name="consent" required> <span>Aceito receber o convite do teste por e-mail e concordo com a <a href="/privacidade.html">Política de Privacidade</a>.</span></label>
-        <div class="cta"><button class="btn" type="submit">Quero testar</button><a class="btn btn-ghost" href="/suporte.html">Dúvidas</a></div>
-        <p class="form-msg" role="status" aria-live="polite"></p>
-      </form>
     </div>
   </div>
 </section>`,
@@ -236,10 +260,12 @@ page({
     </div>
 
     <h2>Dúvidas frequentes</h2>
+    ${faq('Onde baixo o UniHealth?', [`É grátis na <a href="${APP_STORE}">App Store</a> (iPhone) e no <a href="${PLAY_STORE}">Google Play</a> (Android). Basta procurar por UniHealth.`])}
+    ${faq('Quanto custa?', ['O plano Base é grátis, com anúncios, e tudo o que é de saúde funciona nele. Os planos Plus e Pro tiram os anúncios e liberam mais análises do prato por foto, programas e grupos. O preço aparece na tela Planos, no app, antes de assinar.', 'A assinatura é cobrada pela App Store ou pelo Google Play, e você cancela por lá quando quiser.'])}
     ${faq('Preciso criar uma conta?', ['Não. O UniHealth funciona sem conta e os dados ficam só no seu celular. Com conta, você ganha backup na nuvem, acesso em outros aparelhos, a análise de fotos por IA e a parte social.'])}
     ${faq('Posso entrar com @usuário em vez do e-mail?', ['Sim. Na tela de entrar, digite seu e-mail ou seu @usuário e a senha. Também dá para entrar com o Google e, no iPhone, com a Apple.'])}
     ${faq('Troquei de celular. Como recupero meus dados?', ['Instale o app no celular novo e entre com a mesma conta (Perfil → Configurações → Conta e backup). Treinos, refeições, sono e fotos voltam sozinhos.'])}
-    ${faq('O app lê os dados do meu relógio?', ['Sim. Em Treinos → Cardio e passos, conecte o Health Connect (Android) ou o Apple Saúde (iPhone, da versão 0.16 em diante) para trazer passos, sono, batimentos e exercícios. O app só lê esses dados.'])}
+    ${faq('O app lê os dados do meu relógio?', ['Sim. Em Treinos → Cardio e passos, conecte o Health Connect (Android) ou o Apple Saúde (iPhone) para trazer passos, sono, batimentos e exercícios. O app só lê esses dados.'])}
     ${faq('A análise do prato por foto é exata?', ['É uma estimativa feita por inteligência artificial e pode errar. Confira e ajuste os valores antes de salvar. Ela precisa de conta e tem um limite diário de análises.'])}
     ${faq('Os outros veem meu peso ou o que eu como?', ['Não. Na parte social, que é opcional, só aparece o resumo que você permitir: se treinou, passos, minutos de cardio e Uni Pontos. Peso, refeições, sono, ciclo e batimentos nunca são compartilhados.'])}
     ${faq('Os lembretes não chegam. O que faço?', ['Confira se as notificações do UniHealth estão permitidas nos ajustes do celular. No Android 12 ou mais novo, ligue também "Alarmes e lembretes" para o app (Perfil → Configurações → Lembretes mostra o atalho).'])}
@@ -346,7 +372,11 @@ page({
       <a class="btn btn-primary" id="inv-open" href="/">Abrir no UniHealth</a>
     </div>
     <h2>Ainda não tem o app?</h2>
-    <p>O UniHealth está em fase de testes no Android e no iPhone. Para participar, escreva para <a href="mailto:${EMAIL}?subject=Quero%20testar%20o%20UniHealth">${EMAIL}</a>. Depois de instalar, toque de novo no link do convite<span id="inv-hint"></span>.</p>
+    <p>O UniHealth é grátis no iPhone e no Android. Depois de instalar, toque de novo no link do convite<span id="inv-hint"></span>.</p>
+    <div class="cta">
+      <a class="btn btn-ghost" href="${APP_STORE}">Baixar para iPhone</a>
+      <a class="btn btn-ghost" href="${PLAY_STORE}">Baixar para Android</a>
+    </div>
   </div>
 </div>`,
   script: `(function () {
