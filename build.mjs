@@ -111,7 +111,7 @@ page({
       </div>
       <p class="lead">A gente monta o caminho: programa de 8 semanas pelo seu objetivo e metas calculadas para o seu corpo. Para quem nunca treinou e para quem treina todo dia.</p>
       ${CTA}
-      <p class="note">Grátis para baixar no iPhone e no Android.</p>
+      <p class="note">Grátis para baixar, com anúncios e planos pagos opcionais.</p>
     </div>
     <div class="hero-art">
       <div class="bloco" aria-hidden="true"></div>
@@ -145,11 +145,11 @@ page({
     </div>
     <ul class="lista">
       ${recurso('Treinos que se adaptam', 'Programas de 8 semanas pelo seu objetivo, experiência e dias livres. Cargas, descanso cronometrado e recordes.')}
-      ${recurso('Cardio também conta', 'Corrida do zero aos 10 km, pedal, caminhada e natação. Meta de 150 minutos por semana, como recomenda a OMS.')}
+      ${recurso('Cardio também conta', 'Corrida do zero aos 10 km, pedal, caminhada e natação. Adultos: 150 a 300 min/semana de atividade moderada (OMS, 2020). Adolescentes: média de 60 min/dia.')}
       ${recurso('Prato por foto', 'Fotografe a refeição e receba uma estimativa de calorias e macros por IA, com os valores da tabela TACO.')}
       ${recurso('Água e lembretes', 'Meta de água pelo seu peso e lembretes de água, treino, refeições e pesagem no horário que você escolher.')}
       ${recurso('Sono e recuperação', 'Registre a noite ou traga do relógio, com as fases do sono, para saber quando ir com tudo.')}
-      ${recurso('Ciclo menstrual', 'Metas ajustadas em cada fase. Opcional e só para quem quiser.')}
+      ${recurso('Ciclo menstrual', 'Acompanhe o ciclo junto do treino e da alimentação. Opcional e só para quem quiser.')}
       ${recurso('Amigos e grupos', 'Desafios de dias treinados, passos, cardio ou Uni Pontos, com pódio, reações e cutucadas.')}
       ${recurso('876 exercícios', 'Biblioteca com fotos do movimento, separada por músculo, para montar o treino do seu jeito.')}
     </ul>
@@ -193,7 +193,7 @@ page({
         'Sem anúncios',
         'Foto do prato com IA: 3 por dia',
         'Todos os programas e personagens',
-        'Receitas ilimitadas e fotos de antes e depois',
+        'Receitas ilimitadas e evolução em fotos',
         'Até 5 grupos de até 30 pessoas',
       ], true)}
       ${plano('Pro', 'Mensal ou anual', [
@@ -213,10 +213,9 @@ page({
       <h2 class="titulo">Seus<br>dados.</h2>
     </div>
     <ul>
-      <li>Funciona sem conta: os dados ficam só no seu celular.</li>
-      <li>Com conta, backup na nuvem e acesso em qualquer aparelho. A foto do prato é enviada para análise por IA.</li>
+      <li>Sem conta, seus dados ficam só no aparelho. Com conta, o app faz backup na nuvem. A foto do prato é enviada para análise por IA. Peso e saúde não são exibidos a outros usuários.</li>
       <li>Sem venda de dados.</li>
-      <li>Na parte social, só o resumo que você permitir. Peso e saúde nunca são compartilhados; refeições, só as que você escolher mostrar num grupo.</li>
+      <li>Na parte social, só o resumo que você permitir.</li>
       <li>Excluir a conta pelo próprio app apaga seus dados da nuvem.</li>
     </ul>
   </div>
