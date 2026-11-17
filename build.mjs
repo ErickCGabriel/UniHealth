@@ -213,8 +213,8 @@ page({
       <h2 class="titulo">Seus<br>dados.</h2>
     </div>
     <ul>
-      <li>Sem conta, seus dados ficam só no aparelho. Com conta, o app faz backup na nuvem. A foto do prato é enviada para análise por IA. Peso e saúde não são exibidos a outros usuários.</li>
-      <li>Sem venda de dados.</li>
+      <li>Sem conta, seus dados ficam só no aparelho. Com conta, o app faz backup na nuvem. A foto do prato é enviada para análise por IA. Peso e saúde não são exibidos a outros usuários, a menos que você compartilhe.</li>
+      <li>Não vendemos seus dados. Os anúncios do plano grátis são feitos pelo Google AdMob, que pode receber identificadores do aparelho.</li>
       <li>Na parte social, só o resumo que você permitir.</li>
       <li>Excluir a conta pelo próprio app apaga seus dados da nuvem.</li>
     </ul>
