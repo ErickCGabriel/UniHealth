@@ -104,12 +104,12 @@ page({
   <div class="wrap">
     <div class="hero-text">
       <p class="selo mono"><span aria-hidden="true"></span>Agora na App Store e no Google Play</p>
-      <h1 class="manchete" id="manchete"><span>Comece</span><span>por hoje.</span></h1>
+      <h1 class="manchete" id="manchete"><span>Escolha</span><span>o shape.</span></h1>
       <div class="hero-cols mono">
         <p><b>Treino e prato</b>Programas de 8 semanas, cargas, descanso e calorias da refeição por foto.</p>
         <p><b>Água e sono</b>Metas calculadas para o seu corpo, no mesmo quadro do dia.</p>
       </div>
-      <p class="lead">Para quem nunca treinou e para quem treina todo dia. O UniHealth monta as metas e mostra o dia inteiro num lugar só.</p>
+      <p class="lead">A gente monta o caminho: programa de 8 semanas pelo seu objetivo e metas calculadas para o seu corpo. Para quem nunca treinou e para quem treina todo dia.</p>
       ${CTA}
       <p class="note">Grátis para baixar no iPhone e no Android.</p>
     </div>
@@ -117,7 +117,7 @@ page({
       <div class="bloco" aria-hidden="true"></div>
       ${shot('hoje', 'Tela Hoje do UniHealth: treinos da semana, botões Treinar e Refeição', false)}
       <a class="seta" href="#dia" aria-label="Ver o app por dentro"><span aria-hidden="true">↓</span></a>
-      <p class="vertical" aria-hidden="true">Um dia<br>de cada vez.</p>
+      <p class="vertical" aria-hidden="true">A gente monta<br>o caminho.</p>
     </div>
     <p class="versao" aria-label="Versão ${VERSION}">${VERSION}<small>versão</small></p>
   </div>

@@ -12,7 +12,7 @@ Mudanças de 11/11/2026 (briefing de marketing). **Ainda não publicadas:** espe
 | Grupo de academia (troque `nome`) | https://unihealthapp.com.br/?utm_source=grupo&utm_campaign=nome |
 | Indicação de amigo | https://unihealthapp.com.br/?utm_source=indicacao |
 
-**Título B:** acrescente `&t=b` ao link (por exemplo, `...?utm_source=instagram&utm_medium=bio&t=b`). Sem o `t`, aparece o título A ("Comece por hoje."). Para comparar, use um link para cada versão em lugares parecidos por 2 a 3 semanas.
+**Título B:** acrescente `&t=b` ao link (por exemplo, `...?utm_source=instagram&utm_medium=bio&t=b`). Sem o `t`, aparece o título A ("Escolha o shape."). Para comparar, use um link para cada versão em lugares parecidos por 2 a 3 semanas.
 
 ## O que é medido
 Tudo fica no nosso Supabase. Não há cookies nem ferramenta de terceiros, e não se guarda IP nem identificador da pessoa.
